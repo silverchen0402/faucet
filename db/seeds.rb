@@ -1,8 +1,4 @@
-if Rails.env.production?
-    Asset.create(objectid: '1.3.0', symbol: 'BTS', precision: 5)
-else
-    Asset.create(objectid: '1.3.0', symbol: 'CORE', precision: 5)
-end
+Asset.create(objectid: '1.3.0', symbol: 'BTS', precision: 5)
 Asset.create(objectid: '1.3.105', symbol: 'SILVER', precision: 4)
 Asset.create(objectid: '1.3.106', symbol: 'GOLD', precision: 6)
 Asset.create(objectid: '1.3.113', symbol: 'CNY', precision: 4)

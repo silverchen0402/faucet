@@ -11,11 +11,7 @@ module Api
 
     def set_access_control_headers
         headers['Access-Control-Allow-Origin'] = "https://#{Rails.application.routes.default_url_options[:host]}"
-        if Rails.env.production?
             headers['Access-Control-Allow-Origin'] = '*'
-        elsif request.headers['origin']
-            headers['Access-Control-Allow-Origin'] = request.headers['origin']
-        end
         headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
         headers['Access-Control-Allow-Credentials'] = 'true'
         headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version, Token, Content-Type, Accept'
