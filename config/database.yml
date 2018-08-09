@@ -1,14 +1,18 @@
 default: &default
-  adapter: mysql2
-  encoding: utf8
   pool: 5
-  username: root
-  password: Jet2Web!
+  adapter: postgresql
+  encoding: unicode
   host: localhost
+  username: postgres
+  password:
 
 development:
   <<: *default
   database: bitshares_faucet_dev
+
+staging:
+  <<: *default
+  database: bitshares_faucet_staging
 
 test:
   <<: *default

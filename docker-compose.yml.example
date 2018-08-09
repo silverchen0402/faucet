@@ -1,0 +1,50 @@
+version: '3.5'
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    volumes:
+      - type: bind
+        source: ./../shared/faucet_postgres_data
+        target: /var/lib/postgresql/data
+    env_file:
+      - .docker_compose.env
+  faucet:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    entrypoint:
+      - /docker-entrypoint-web.sh
+    depends_on:
+      - postgres
+    #command: bundle exec rackup --port ${HOST_APP_PORT} --env ${RAILS_ENV}
+    command: tail -f /dev/null
+    # command: bundle exec unicorn -E ${RAILS_ENV} --port ${HOST_APP_PORT}
+    volumes:
+      - type: bind
+        source: ./../shared/tmp
+        target: /app/tmp
+      - type: bind
+        source: ./../shared/public
+        target: /app/public
+      - type: bind
+        source: ./../shared/log
+        target: /app/log
+      - type: bind
+        source: ./../shared/bundle
+        target: /bundle
+      - .:/app
+    ports:
+      - "${HOST_APP_PORT}:${HOST_APP_PORT}"
+
+    env_file:
+      - .docker_compose.env
+    networks:
+      - default
+      - proxynet
+
+networks:
+  proxynet:
+    name: ${PROXYNET_NAME}
+

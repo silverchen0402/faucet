@@ -3,6 +3,9 @@
 /log/*
 /tmp/*
 /.idea
+docker-compose.yml
+.env
+.docker_compose.env
 config/secrets.yml
 config/faucet.yml
 config/deploy.yml

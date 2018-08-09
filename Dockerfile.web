@@ -1,0 +1,25 @@
+FROM ruby:2.5.1
+
+# https://github.com/tianon/docker-brew-ubuntu-core/issues/59
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
+
+RUN apt-get update && apt-get install --assume-yes apt-utils cron vim less nano screen tmux nodejs
+
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY . .
+
+COPY ./docker-entrypoint-web.sh /
+RUN chmod +x /docker-entrypoint-web.sh
+ENTRYPOINT ["/docker-entrypoint-web.sh"]
+# Add bundle entry point to handle bundle cache
+
+ENV BUNDLE_PATH=/bundle \
+    BUNDLE_BIN=/bundle/bin \
+    GEM_HOME=/bundle
+ENV PATH="${BUNDLE_BIN}:${PATH}"
+
