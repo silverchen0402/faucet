@@ -34,6 +34,13 @@ gem 'unicorn'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Security
+gem 'rack-attack'
+
+# Notifications
+gem 'airbrake', '~> 5.8.1'
+gem 'airbrake-ruby', '~> 1.8.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

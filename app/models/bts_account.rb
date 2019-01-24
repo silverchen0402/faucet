@@ -11,8 +11,10 @@ class BtsAccount < ActiveRecord::Base
   validates :active_key, presence: true
   #validates :memo_key, presence: true
 
-  validates_uniqueness_of :remote_ip, conditions: -> {where("created_at > '#{(DateTime.now - 5.minutes).to_s(:db)}'")}, message: "Can't register more than one account per IP in less than 5 minutes"
+  validates_uniqueness_of :remote_ip, conditions: -> {where("created_at > '#{(DateTime.now - 30.minutes).to_s(:db)}'")}, message: "Can't register more than one account per IP in less than 30 minutes"
+  validates :remote_ip, presence: true, exclusion: { in: BlackList.pluck(:remote_ip) }
 
+  before_validation :notify_before
   before_create :register_account
 
   scope :grouped_by_referrers, -> { select([:referrer, 'count(*) as count']).group(:referrer).order('count desc') }
@@ -37,6 +39,11 @@ class BtsAccount < ActiveRecord::Base
 
   private
 
+  def notify_before
+    Airbrake.notify("Faucet new: #{self.name} from #{self.remote_ip}")
+    sleep(2)
+  end
+
   def register_account
     #sleep(2)
     referral_code, referrer = nil, self.referrer
@@ -46,11 +53,17 @@ class BtsAccount < ActiveRecord::Base
     end
     result = AccountRegistrator.new(nil, logger).register(self.name, self.owner_key, self.active_key, self.memo_key, referrer)
     if result[:error]
-      errors.add(:base, result[:error]['message'] ? result[:error]['message'] : 'unknown backend error')
+      error_message = result[:error]['message'] ? result[:error]['message'] : 'unknown backend error'
+      errors.add(:base, error_message)
+      Airbrake.notify("Faucet error: #{error_message}")
+      sleep(2)
       return false
     end
 
     referral_code.claim(self.name) if referral_code
+
+    Airbrake.notify("Faucet create: #{self.name} from #{self.remote_ip}")
+    sleep(2)
 
     return true
   end
