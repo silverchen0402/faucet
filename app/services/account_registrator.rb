@@ -46,7 +46,7 @@ class AccountRegistrator
                 referrer_percent = Rails.application.config.faucet.referrer_percent
             else
                 @logger.warn("---- Referrer '#{referrer}' is not a member")
-                return {error: {'message' => 'Referrer is not a member'}}
+                return {error: {'message' => "---- Referrer '#{referrer}' is not a member"}}
             end
         end
 
