@@ -36,7 +36,9 @@ class AccountRegistrator
             return {error: {'message' => 'Premium names registration is not supported by this faucet'}}
         end
 
+        voting_account    = Rails.application.config.faucet.voting_account
         registrar_account = Rails.application.config.faucet.registrar_account
+
         referrer_account = registrar_account
         referrer_percent = 0
         unless referrer.blank?
@@ -51,7 +53,7 @@ class AccountRegistrator
         end
 
         res = {}
-        result, error = GrapheneCli.instance.exec('register_account', [account_name, owner_key, active_key, registrar_account, referrer_account, referrer_percent, true])
+        result, error = GrapheneCli.instance.exec('register_account', [account_name, owner_key, active_key, registrar_account, referrer_account, referrer_percent, true, voting_account])
         if error
             @logger.error("!!! register_account error: #{error.inspect}")
             res[:error] = error
