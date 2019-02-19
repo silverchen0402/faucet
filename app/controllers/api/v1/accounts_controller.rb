@@ -40,7 +40,7 @@ module Api
 
             def account_params
                 if params[:account]
-                    params[:account][:remote_ip] = request.env['HTTP_CF_CONNECTING_IP']
+                    params[:account][:remote_ip] = request.env['HTTP_CF_CONNECTING_IP'].presence || request.remote_ip
                     params[:account][:referrer] = cookies[:_referrer_] unless cookies[:_referrer_].blank?
                 end
                 params.require(:account).permit(:name, :owner_key, :active_key, :memo_key, :remote_ip, :refcode, :referrer)
