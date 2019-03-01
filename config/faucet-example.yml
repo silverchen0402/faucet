@@ -4,6 +4,8 @@ voting_account: your_voting_account
 referrer_percent: 50
 refcode_prefix: F01
 
+mattermost_hook: 123
+
 default_url: localhost
 default_port: 3000
 
