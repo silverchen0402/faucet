@@ -1,3 +1,5 @@
+require Rails.root.join('lib/mattermost_client.rb').to_s
+
 class BtsAccount < ActiveRecord::Base
   DATE_SCOPES = ['Today', 'Yesterday', 'This week', 'Last week', 'This month', 'Last month', 'All']
 
@@ -40,8 +42,7 @@ class BtsAccount < ActiveRecord::Base
   private
 
   def notify_before
-    Airbrake.notify("Faucet new: #{self.name} from #{self.remote_ip}")
-    sleep(2)
+    ::MattermostClient.notify("Faucet new: #{self.name} from #{self.remote_ip}")
   end
 
   def register_account
@@ -62,8 +63,7 @@ class BtsAccount < ActiveRecord::Base
 
     referral_code.claim(self.name) if referral_code
 
-    Airbrake.notify("Faucet create: #{self.name} from #{self.remote_ip}")
-    sleep(2)
+    ::MattermostClient.notify("Faucet create: #{self.name} from #{self.remote_ip}")
 
     return true
   end
