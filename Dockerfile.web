@@ -1,4 +1,4 @@
-FROM ruby:2.5.1
+FROM ruby:2.5.7
 
 # https://github.com/tianon/docker-brew-ubuntu-core/issues/59
 ARG DEBIAN_FRONTEND=noninteractive
