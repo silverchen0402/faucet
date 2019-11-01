@@ -15,7 +15,7 @@ Airbrake.configure do |c|
   c.project_id = Rails.application.secrets.AIRBRAKE_PROJECT_ID
   c.project_key = Rails.application.secrets.AIRBRAKE_API_KEY
 
-  c.host = 'http://errbit.teamvoy.com'
+  c.host = Rails.application.secrets.AIRBRAKE_API_HOST
 
   # Configures the root directory of your project. Expects a String or a
   # Pathname, which represents the path to your project. Providing this option
