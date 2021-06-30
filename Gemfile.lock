@@ -114,7 +114,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.11.2)
-    mysql2 (0.3.18)
+    mysql2 (0.5.3)
     nokogiri (1.8.3)
       mini_portile2 (~> 2.3.0)
     omniauth (1.2.2)
@@ -240,7 +240,7 @@ DEPENDENCIES
   mandrill-api
   mina
   mina-rsync
-  mysql2 (= 0.3.18)
+  mysql2 (= 0.5.3)
   omniauth
   pg (~> 0.18)
   promise.rb
@@ -257,7 +257,7 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 RUBY VERSION
-   ruby 2.5.7p206
+   ruby 2.5.9p229
 
 BUNDLED WITH
    1.16.2

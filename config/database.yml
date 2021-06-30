@@ -3,8 +3,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   host: localhost
-  username: postgres
-  password:
+  username: silver
+  password: li2oeeaj
 
 development:
   <<: *default

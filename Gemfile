@@ -6,7 +6,7 @@ ruby File.open('.ruby-version').readline.chomp
 gem 'rails', '~> 4.2.10'
 #gem 'rails', '4.2.4'
 #
-gem 'mysql2', '0.3.18'
+gem 'mysql2', '0.5.3'
 gem 'pg', '~> 0.18'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
