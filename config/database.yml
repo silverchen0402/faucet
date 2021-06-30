@@ -8,7 +8,7 @@ default: &default
 
 development:
   <<: *default
-  database: bitshares_faucet_dev
+  database: bitshares_faucet
 
 staging:
   <<: *default

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby File.open('.ruby-version').readline.chomp
+ruby File.open('/home/silver/mycoin/faucet/.ruby-version').readline.chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.10'
@@ -39,8 +39,8 @@ gem 'unicorn'
 gem 'rack-attack'
 
 # Notifications
-gem 'airbrake', '~> 5.8.1'
-gem 'airbrake-ruby', '~> 1.8.0'
+gem 'airbrake'
+gem 'airbrake-ruby'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

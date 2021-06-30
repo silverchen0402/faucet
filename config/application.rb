@@ -2,6 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -44,5 +45,8 @@ module Faucet
         }
         routes.default_url_options = config.action_mailer.default_url_options
         config.faucet = FAUCETCONF
+        config.logger = Logger.new(STDOUT)
+        config.log_level = :debug
+
     end
 end
